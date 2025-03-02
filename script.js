@@ -1,45 +1,49 @@
-// جلب الجملة التحفيزية من الإنترنت
-async function fetchMotivationalQuote() {
-    try {
-        const response = await fetch("https://api.quotable.io/random");
-        const data = await response.json();
-        document.getElementById("motivational-quote").innerText = "${data.content}" - ${data.author};
-    } catch (error) {
-        console.error("Error fetching quote:", error);
-        document.getElementById("motivational-quote").innerText = "Stay focused and keep studying! 💪";
+// الحصول على اسم اليوم الحالي
+function getCurrentDay() {
+    const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const today = new Date().getDay();
+    return days[today]; 
+}
+
+// تسجيل المادة التي تمت دراستها مع اليوم
+function logStudy(subject) {
+    const currentDay = getCurrentDay();
+    let studyLog = JSON.parse(localStorage.getItem("studyLog")) || {};
+
+    if (!studyLog[currentDay]) {
+        studyLog[currentDay] = [];
     }
-}
 
-// حفظ حالة الدراسة والملاحظات في Local Storage
-function saveProgress(subject) {
-    const lectureDone = document.getElementById("lectureCheckbox").checked;
-    const sectionDone = document.getElementById("sectionCheckbox").checked;
-    const progressNotes = document.getElementById("progressNotes").value;
-
-    const progressData = {
-        lectureDone: lectureDone,
-        sectionDone: sectionDone,
-        progressNotes: progressNotes
-    };
-
-    localStorage.setItem(subject, JSON.stringify(progressData));
-    alert("Progress saved successfully! ✅");
-}
-
-// تحميل البيانات المحفوظة عند فتح الصفحة
-function loadProgress(subject) {
-    const savedData = localStorage.getItem(subject);
-    if (savedData) {
-        const progressData = JSON.parse(savedData);
-        document.getElementById("lectureCheckbox").checked = progressData.lectureDone;
-        document.getElementById("sectionCheckbox").checked = progressData.sectionDone;
-        document.getElementById("progressNotes").value = progressData.progressNotes;
+    if (!studyLog[currentDay].includes(subject)) {
+        studyLog[currentDay].push(subject);
+        localStorage.setItem("studyLog", JSON.stringify(studyLog));
     }
+
+    alert(✅ You studied ${subject} today (${currentDay}));
 }
 
-// تحميل الجملة التحفيزية عند فتح الصفحة الرئيسية
+// عرض المواد التي ذاكرتها في يوم معين
+function getStudiesByDay(day) {
+    let studyLog = JSON.parse(localStorage.getItem("studyLog")) || {};
+    return studyLog[day] ? studyLog[day].join(", ") : "No subjects recorded.";
+}
+
+// عرض جميع المواد التي ذاكرتها خلال الأسبوع
+function getWeeklySummary() {
+    let studyLog = JSON.parse(localStorage.getItem("studyLog")) || {};
+    let summary = "📅 Weekly Study Summary:\n\n";
+
+    for (let day in studyLog) {
+        summary += 📌 ${day}: ${studyLog[day].join(", ")}\n;
+    }
+
+    alert(summary);
+}
+
+// تحميل المواد التي ذاكرتها في اليوم الحالي عند فتح الصفحة
 document.addEventListener("DOMContentLoaded", function () {
-    if (document.getElementById("motivational-quote")) {
-        fetchMotivationalQuote();
+    if (document.getElementById("todayStudies")) {
+        const today = getCurrentDay();
+        document.getElementById("todayStudies").innerText = 📅 Today (${today}): ${getStudiesByDay(today)};
     }
 });
