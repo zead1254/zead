@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dental Study Schedule</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="quote-container" id="quote">"Loading motivational quote..."</div>
+    
+    <div class="container">
+        <header>
+            <h1>Dental Study Schedule</h1>
+            <p>Organize your study sessions efficiently</p>
+        </header>
+        
+        <section class="schedule">
+            <div class="subject-box">
+                <h3>Pathology 🦠</h3>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="pathology-lecture"> <label for="pathology-lecture">Lecture</label>
+                    <input type="checkbox" id="pathology-section"> <label for="pathology-section">Section</label>
+                </div>
+            </div>
+            <div class="subject-box">
+                <h3>Physiology 🧠</h3>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="physiology-lecture"> <label for="physiology-lecture">Lecture</label>
+                    <input type="checkbox" id="physiology-section"> <label for="physiology-section">Section</label>
+                </div>
+            </div>
+            <div class="subject-box">
+                <h3>Oral Biology 🦷</h3>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="oralbio-lecture"> <label for="oralbio-lecture">Lecture</label>
+                    <input type="checkbox" id="oralbio-section"> <label for="oralbio-section">Section</label>
+                </div>
+            </div>
+            <div class="subject-box">
+                <h3>Dental Materials 🛠</h3>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="dentalmat-lecture"> <label for="dentalmat-lecture">Lecture</label>
+                    <input type="checkbox" id="dentalmat-section"> <label for="dentalmat-section">Section</label>
+                </div>
+            </div>
+            <div class="subject-box">
+                <h3>Human Anatomy 🧬</h3>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="anatomy-lecture"> <label for="anatomy-lecture">Lecture</label>
+                    <input type="checkbox" id="anatomy-section"> <label for="anatomy-section">Section</label>
+                </div>
+            </div>
+            <div class="subject-box">
+                <h3>Microbiology 🔬</h3>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="microbio-lecture"> <label for="microbio-lecture">Lecture</label>
+                    <input type="checkbox" id="microbio-section"> <label for="microbio-section">Section</label>
+                </div>
+            </div>
+            <div class="subject-box">
+                <h3>Biochemistry ⚗</h3>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="biochem-lecture"> <label for="biochem-lecture">Lecture</label>
+                    <input type="checkbox" id="biochem-section"> <label for="biochem-section">Section</label>
+                </div>
+            </div>
+            <div class="subject-box">
+                <h3>Ethics 📜</h3>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="ethics-lecture"> <label for="ethics-lecture">Lecture</label>
+                </div>
+            </div>
+        </section>
+
+        <section class="progress-report">
+            <h2>Study Progress</h2>
+            <canvas id="progressChart"></canvas>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
