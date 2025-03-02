@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily & Weekly Study Report</title>
+    <link rel="stylesheet" href="style.css">
+    <script defer src="script.js"></script>
+</head>
+<body>
+
+    <!-- ✅ الهيدر -->
+    <header>
+        <h1>📚 Daily & Weekly Study Report</h1>
+        <p>Track your daily and weekly progress</p>
+        <p id="currentDate"></p>
+    </header>
+
+    <!-- ✅ إدخال بيانات الدراسة اليومية -->
+    <section id="dailyStudySection">
+        <h2>📝 Today's Study Log</h2>
+        <label for="subject">Select Subject:</label>
+        <select id="subject">
+            <option value="Pathology">Pathology 🦠</option>
+            <option value="Physiology">Physiology 💓</option>
+            <option value="Oral Biology">Oral Biology 🦷</option>
+            <option value="Dental Materials">Dental Materials 🛠</option>
+            <option value="Human Anatomy">Human Anatomy 🏋</option>
+            <option value="Microbiology">Microbiology 🔬</option>
+            <option value="Biochemistry">Biochemistry ⚗</option>
+            <option value="Ethics">Ethics ⚖</option>
+        </select>
+
+        <label for="studyType">Study Type:</label>
+        <select id="studyType">
+            <option value="Lecture">Lecture 🎓</option>
+            <option value="Section">Section 🏛</option>
+        </select>
+
+        <button onclick="saveStudyLog()">Save Entry</button>
+    </section>
+
+    <!-- ✅ عرض السجل اليومي -->
+    <section id="todayLog">
+        <h2>📌 Study Log for Today</h2>
+        <ul id="dailyEntries"></ul>
+    </section>
+
+    <!-- ✅ تحليل الدراسة الأسبوعي -->
+    <section id="weeklyReport">
+        <h2>📊 Weekly Study Analysis</h2>
+        <ul id="weeklyEntries"></ul>
+    </section>
+
+</body>
+</html>

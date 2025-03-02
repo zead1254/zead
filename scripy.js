@@ -1,125 +1,93 @@
+// ✅ تحميل البيانات المحفوظة تلقائيًا عند فتح الصفحة
 document.addEventListener("DOMContentLoaded", function () {
-    updateDateTime();
-    loadStudyStatus();
-    loadProgressNotes();
-    loadStudyLog();
-    setInterval(updateDateTime, 1000); // تحديث الساعة كل ثانية
+    loadStudyData();
+    updateWeeklySummary();
 });
 
-// ✅ تحديث وعرض الوقت والتاريخ
-function updateDateTime() {
-    const now = new Date();
-    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    document.getElementById("currentDate").textContent = now.toLocaleDateString("en-US", options);
-    document.getElementById("currentTime").textContent = now.toLocaleTimeString("en-US", { hour12: false });
-}
-
-// ✅ حفظ حالة المحاضرات والسيكشنات فورًا عند التغيير
-function saveStudyStatus() {
-    const subject = document.body.getAttribute("data-subject");
-    if (!subject) return;
-
-    const studyData = {
-        lecture: document.getElementById("lectureCheckbox").checked,
-        section: document.getElementById("sectionCheckbox").checked
-    };
-
-    localStorage.setItem(subject + "_status", JSON.stringify(studyData));
-    showNotification(Saved progress for ${subject});
-}
-
-// ✅ تحميل حالة المحاضرات والسيكشنات عند فتح الصفحة
-function loadStudyStatus() {
-    const subject = document.body.getAttribute("data-subject");
-    if (!subject) return;
-
-    const savedStatus = localStorage.getItem(subject + "_status");
-    if (savedStatus) {
-        const studyData = JSON.parse(savedStatus);
-        document.getElementById("lectureCheckbox").checked = studyData.lecture;
-        document.getElementById("sectionCheckbox").checked = studyData.section;
-    }
-}
-
-// ✅ حفظ الملاحظات فورًا عند التعديل
-function saveProgress() {
-    const subject = document.body.getAttribute("data-subject");
-    if (!subject) return;
-
-    localStorage.setItem(subject + "_notes", document.getElementById("progressNotes").value);
-    showNotification(Saved notes for ${subject});
-}
-
-// ✅ تحميل الملاحظات عند فتح الصفحة
-function loadProgressNotes() {
-    const subject = document.body.getAttribute("data-subject");
-    if (!subject) return;
-
-    const savedNotes = localStorage.getItem(subject + "_notes");
-    if (savedNotes) {
-        document.getElementById("progressNotes").value = savedNotes;
-    }
-}
-
-// ✅ تسجيل المادة التي تمت دراستها في اليوم الحالي
-function logStudy() {
-    const subject = document.body.getAttribute("data-subject");
-    if (!subject) return;
-
-    const today = new Date().toLocaleDateString("en-US");
-    let studyLog = JSON.parse(localStorage.getItem("studyLog")) || {};
-
-    if (!studyLog[today]) {
-        studyLog[today] = [];
-    }
-
-    if (!studyLog[today].includes(subject)) {
-        studyLog[today].push(subject);
-    }
-
-    localStorage.setItem("studyLog", JSON.stringify(studyLog));
-    showNotification(${subject} logged for today! ✅);
-    loadStudyLog();
-}
-
-// ✅ تحميل وعرض سجل الدراسة
-function loadStudyLog() {
-    const studyLog = JSON.parse(localStorage.getItem("studyLog")) || {};
-    const logContainer = document.getElementById("studyLog");
-
-    if (!logContainer) return;
-    logContainer.innerHTML = "";
-
-    for (let date in studyLog) {
-        let entry = document.createElement("p");
-        entry.innerHTML = <strong>${date}:</strong> ${studyLog[date].join(", ")};
-        logContainer.appendChild(entry);
-    }
-}
-
-// ✅ إضافة تأثير أنيميشن عند الضغط على الأزرار
-document.querySelectorAll("button").forEach(button => {
-    button.addEventListener("click", function () {
-        this.style.transform = "scale(0.9)";
-        setTimeout(() => this.style.transform = "scale(1)", 150);
+// ✅ اختيار كل المواد وربطها بالحدث عند النقر
+const subjects = document.querySelectorAll(".subject");
+subjects.forEach(subject => {
+    subject.addEventListener("click", function () {
+        toggleStudyStatus(subject);
     });
 });
 
-// ✅ استجابة فورية عند تغيير حالة الدراسة
-document.querySelectorAll("#lectureCheckbox, #sectionCheckbox").forEach(checkbox => {
-    checkbox.addEventListener("change", saveStudyStatus);
-});
+// ✅ وظيفة لحفظ حالة المادة وتحديث التحليل
+function toggleStudyStatus(subject) {
+    let subjectName = subject.textContent.trim();
+    let currentStatus = localStorage.getItem(subjectName) || "لم يتم الدراسة";
 
-// ✅ استجابة فورية عند كتابة الملاحظات
-document.getElementById("progressNotes").addEventListener("input", saveProgress);
+    // ✅ التبديل بين "محاضرة" و "سيكشن"
+    if (currentStatus === "لم يتم الدراسة") {
+        localStorage.setItem(subjectName, "محاضرة");
+        subject.style.background = "linear-gradient(to right, #00c853, #00796b)";
+    } else if (currentStatus === "محاضرة") {
+        localStorage.setItem(subjectName, "سيكشن");
+        subject.style.background = "linear-gradient(to right, #ffcc00, #ff9900)";
+    } else {
+        localStorage.setItem(subjectName, "لم يتم الدراسة");
+        subject.style.background = "linear-gradient(to right, #ccc, #999)";
+    }
 
-// ✅ إشعارات ذكية عند الحفظ
-function showNotification(message) {
-    const notification = document.getElementById("notification");
-    notification.textContent = message;
-    notification.classList.add("show");
-
-    setTimeout(() => {
-        notification.classList.remove("show");
-    }, 2000);
+    // ✅ تحديث التحليل
+    updateStudyLog();
+    updateWeeklySummary();
 }
+
+// ✅ تحديث سجل الدراسة اليومي
+function updateStudyLog() {
+    let studyLog = document.getElementById("studyLog");
+    studyLog.innerHTML = ""; // مسح القديم
+
+    subjects.forEach(subject => {
+        let subjectName = subject.textContent.trim();
+        let status = localStorage.getItem(subjectName) || "لم يتم الدراسة";
+        if (status !== "لم يتم الدراسة") {
+            let logEntry = document.createElement("p");
+            logEntry.textContent = 📚 ${subjectName}: ${status};
+            studyLog.appendChild(logEntry);
+        }
+    });
+}
+
+// ✅ تحديث الملخص الأسبوعي
+function updateWeeklySummary() {
+    let weeklySummary = document.getElementById("weeklySummary");
+    let totalSubjects = subjects.length;
+    let studiedSubjects = 0;
+
+    subjects.forEach(subject => {
+        let status = localStorage.getItem(subject.textContent.trim()) || "لم يتم الدراسة";
+        if (status !== "لم يتم الدراسة") {
+            studiedSubjects++;
+        }
+    });
+
+    weeklySummary.textContent = 📊 لقد أنجزت ${studiedSubjects} من ${totalSubjects} مواد هذا الأسبوع!;
+}
+
+// ✅ تحميل البيانات السابقة عند فتح الصفحة
+function loadStudyData() {
+    subjects.forEach(subject => {
+        let subjectName = subject.textContent.trim();
+        let status = localStorage.getItem(subjectName) || "لم يتم الدراسة";
+
+        if (status === "محاضرة") {
+            subject.style.background = "linear-gradient(to right, #00c853, #00796b)";
+        } else if (status === "سيكشن") {
+            subject.style.background = "linear-gradient(to right, #ffcc00, #ff9900)";
+        }
+    });
+
+    updateStudyLog();
+}
+
+// ✅ زر لمسح جميع البيانات (اختياري)
+document.getElementById("resetData").addEventListener("click", function () {
+    if (confirm("هل أنت متأكد من مسح جميع البيانات؟")) {
+        localStorage.clear();
+        subjects.forEach(subject => subject.style.background = "linear-gradient(to right, #ccc, #999)");
+        updateStudyLog();
+        updateWeeklySummary();
+    }
+});
