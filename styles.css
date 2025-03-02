@@ -1,131 +1,149 @@
-/* استيراد خط يشبه الكتابة اليدوية */
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@300;500;700&display=swap');
+/* استيراد الخطوط */
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
 
+/* إعدادات عامة */
 body {
-    font-family: 'Poppins', sans-serif;
-    background-color: #f5f5f5;
-    color: #333;
+    font-family: 'Patrick Hand', cursive; /* خط يشبه الكتابة اليدوية */
+    background-color: #1a1a1a; /* خلفية داكنة */
+    color: #f5f5f5; /* لون النص */
+    text-align: center;
     margin: 0;
     padding: 0;
-    text-align: center;
+    transition: background-color 0.5s ease-in-out;
 }
 
-/* تصميم الهيدر */
+/* الهيدر */
 header {
-    background: linear-gradient(to right, #444, #222);
-    color: white;
-    padding: 15px 0;
+    background-color: #333;
+    padding: 20px;
     font-size: 24px;
     font-weight: bold;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
+    box-shadow: 0px 4px 10px rgba(255, 215, 0, 0.5);
+    animation: fadeInDown 0.8s ease-in-out;
 }
 
-/* زر الرجوع */
-.back-btn {
-    display: inline-block;
-    background: #d4af37;
-    color: white;
+/* الأزرار والروابط */
+a {
     text-decoration: none;
-    padding: 10px 15px;
-    border-radius: 8px;
+    color: #ffd700; /* ذهبي */
     font-weight: bold;
-    transition: 0.3s;
+    transition: color 0.3s ease-in-out;
 }
 
-.back-btn:hover {
-    background: #b89b2e;
+a:hover {
+    color: #ffcc00;
 }
 
-/* تصميم القائمة الرئيسية */
-.main-container {
-    max-width: 600px;
-    margin: auto;
-    padding: 20px;
-}
-
-.subjects {
+/* القائمة الرئيسية للمواد */
+ul {
     list-style: none;
     padding: 0;
 }
 
-.subjects li {
-    background: white;
-    margin: 10px 0;
+li {
+    background: #333;
+    color: #ffd700;
     padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    margin: 10px;
+    border-radius: 10px;
     font-size: 18px;
     font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out, background 0.3s ease-in-out;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    transition: 0.3s;
-    cursor: pointer;
+    justify-content: center;
 }
 
-.subjects li:hover {
-    background: #d4af37;
-    color: white;
+li:hover {
+    background: #444;
     transform: scale(1.05);
 }
 
-/* أيقونات المواد */
-.subjects li span {
-    font-size: 22px;
-    margin-right: 10px;
+/* الأيقونات بجانب المواد */
+li::before {
+    content: "📘 ";
+    font-size: 20px;
 }
 
-/* تأثيرات الأنيميشن */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
+/* الأنيميشن عند فتح الصفحة */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-.subjects li {
-    animation: fadeIn 0.5s ease-in-out;
+/* أنيميشن عند تمرير الماوس */
+.study-status label:hover, .progress button:hover {
+    transform: scale(1.05);
+    transition: 0.3s ease-in-out;
 }
 
-/* تصميم أقسام الصفحة الفرعية */
-.study-status, .progress {
-    background: white;
-    margin: 20px auto;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-    text-align: left;
-    max-width: 500px;
-}
-
-h2 {
-    color: #444;
-}
-
-/* أزرار حفظ البيانات */
-button {
-    background: #d4af37;
-    border: none;
-    color: white;
-    padding: 10px 15px;
-    border-radius: 5px;
+/* الملاحظات */
+textarea {
+    width: 80%;
+    height: 100px;
+    background: #333;
+    color: #fff;
+    border: 2px solid #ffd700;
+    padding: 10px;
     font-size: 16px;
+    border-radius: 8px;
+}
+
+/* الأزرار */
+button {
+    background: #ffd700;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 8px;
     cursor: pointer;
     transition: 0.3s;
+    font-weight: bold;
 }
 
 button:hover {
-    background: #b89b2e;
+    background: #ffcc00;
 }
 
-/* مربع الإدخال */
-textarea {
-    width: 100%;
-    height: 80px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    font-size: 16px;
-    resize: none;
+/* العناصر الرئيسية */
+main {
+    margin-top: 30px;
+    padding: 20px;
+}
+
+/* تنسيق الصفحة الفرعية */
+.study-status {
+    margin: 20px 0;
+    padding: 20px;
+    background: #222;
+    border-radius: 10px;
+}
+
+.progress {
+    margin-top: 20px;
+    padding: 20px;
+    background: #333;
+    border-radius: 10px;
+}
+
+/* تأثير تحميل الصفحة */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+body {
+    animation: fadeIn 1s ease-in-out;
 }

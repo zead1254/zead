@@ -7,36 +7,41 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
     <header>
-        <h1>The Boss 🦷</h1>
-        <p class="subtitle">Dr. ZEAD Elsayed</p>
-        <div class="datetime">
-            <p id="day"></p>
-            <p id="date"></p>
-            <p id="time"></p>
-        </div>
+        <h1>🦷 The Boss - Dr. ZEAD Elsayed</h1>
+        <p id="clock">⏳ Loading time...</p>
+        <p id="date">📅 Loading date...</p>
     </header>
 
     <main>
+        <section class="motivation">
+            <h2>💡 Motivation</h2>
+            <p id="quote">Loading motivational quote...</p>
+        </section>
+
         <section class="subjects">
             <h2>📚 Subjects</h2>
             <ul>
-                <li><a href="pathology.html">🩸 Pathology</a></li>
-                <li><a href="physiology.html">🫀 Physiology</a></li>
-                <li><a href="oral_biology.html">🦷 Oral Biology</a></li>
-                <li><a href="material.html">🏗 Material</a></li>
-                <li><a href="human_anatomy.html">🧠 Human Anatomy</a></li>
-                <li><a href="microbiology.html">🦠 Microbiology</a></li>
-                <li><a href="biochemistry.html">⚗ Biochemistry</a></li>
-                <li><a href="ethics.html">⚖ Ethics</a></li>
+                <li onclick="location.href='pathology.html'">🩸 Pathology</li>
+                <li onclick="location.href='physiology.html'">🫀 Physiology</li>
+                <li onclick="location.href='oral_biology.html'">🦷 Oral Biology</li>
+                <li onclick="location.href='materials.html'">🏗 Dental Materials</li>
+                <li onclick="location.href='human_anatomy.html'">🦴 Human Anatomy</li>
+                <li onclick="location.href='microbiology.html'">🦠 Microbiology</li>
+                <li onclick="location.href='biochemistry.html'">🧪 Bio Chemistry</li>
+                <li onclick="location.href='ethics.html'">⚖ Ethics</li>
             </ul>
         </section>
 
-        <section class="motivation">
-            <h3 id="quote">Loading motivational quote...</h3>
+        <section class="study-log">
+            <h2>📅 Study Progress</h2>
+            <p id="todayStudies">📌 Today: Loading...</p>
+            <button onclick="getWeeklySummary()">📊 Show Weekly Summary</button>
         </section>
     </main>
 
     <script src="script.js"></script>
+
 </body>
 </html>
