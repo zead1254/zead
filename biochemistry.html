@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biochemistry - The Boss</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>⚗ Biochemistry</h1>
+        <a href="index.html" class="back-btn">⬅ Back</a>
+    </header>
+
+    <main>
+        <section class="study-status">
+            <h2>Study Status</h2>
+            <label><input type="checkbox" id="lectureCheckbox"> Lecture Done</label>
+            <label><input type="checkbox" id="sectionCheckbox"> Section Done</label>
+        </section>
+
+        <section class="progress">
+            <h2>📊 Progress Analysis</h2>
+            <textarea id="progressNotes" placeholder="Write what you've achieved..."></textarea>
+            <button onclick="saveProgress('biochemistry')">Save</button>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
