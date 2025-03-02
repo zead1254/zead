@@ -4,44 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Boss - Dr. ZEAD Elsayed</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
+    <script defer src="script.js"></script>
 </head>
 <body>
 
+    <!-- ✅ الهيدر -->
     <header>
-        <h1>🦷 The Boss - Dr. ZEAD Elsayed</h1>
-        <p id="clock">⏳ Loading time...</p>
-        <p id="date">📅 Loading date...</p>
+        <h1>The Boss</h1>
+        <p>Dr. Zead Elsayed - Study Tracker</p>
+        <p id="currentDate"></p>
+        <p id="currentTime"></p>
     </header>
 
-    <main>
-        <section class="motivation">
-            <h2>💡 Motivation</h2>
-            <p id="quote">Loading motivational quote...</p>
-        </section>
+    <!-- ✅ تحليل الدراسة والتجميع الأسبوعي -->
+    <section id="weeklyAnalysis">
+        <h2>📊 Weekly Study Analysis</h2>
+        <div id="weeklySummary">No data available yet.</div>
+    </section>
 
-        <section class="subjects">
-            <h2>📚 Subjects</h2>
-            <ul>
-                <li onclick="location.href='pathology.html'">🩸 Pathology</li>
-                <li onclick="location.href='physiology.html'">🫀 Physiology</li>
-                <li onclick="location.href='oral_biology.html'">🦷 Oral Biology</li>
-                <li onclick="location.href='materials.html'">🏗 Dental Materials</li>
-                <li onclick="location.href='human_anatomy.html'">🦴 Human Anatomy</li>
-                <li onclick="location.href='microbiology.html'">🦠 Microbiology</li>
-                <li onclick="location.href='biochemistry.html'">🧪 Bio Chemistry</li>
-                <li onclick="location.href='ethics.html'">⚖ Ethics</li>
-            </ul>
-        </section>
+    <!-- ✅ قائمة المواد -->
+    <section class="subjects">
+        <div class="subject" onclick="location.href='pathology.html'">Pathology 🦠</div>
+        <div class="subject" onclick="location.href='physiology.html'">Physiology 💓</div>
+        <div class="subject" onclick="location.href='oral_biology.html'">Oral Biology 🦷</div>
+        <div class="subject" onclick="location.href='materials.html'">Dental Materials 🛠</div>
+        <div class="subject" onclick="location.href='human_anatomy.html'">Human Anatomy 🏋</div>
+        <div class="subject" onclick="location.href='microbiology.html'">Microbiology 🔬</div>
+        <div class="subject" onclick="location.href='biochemistry.html'">Biochemistry ⚗</div>
+        <div class="subject" onclick="location.href='ethics.html'">Ethics ⚖</div>
+    </section>
 
-        <section class="study-log">
-            <h2>📅 Study Progress</h2>
-            <p id="todayStudies">📌 Today: Loading...</p>
-            <button onclick="getWeeklySummary()">📊 Show Weekly Summary</button>
-        </section>
-    </main>
+    <!-- ✅ سجل الدراسة -->
+    <section id="studyLogContainer">
+        <h2>📅 Study Log</h2>
+        <div id="studyLog"></div>
+    </section>
 
-    <script src="script.js"></script>
+    <!-- ✅ إشعارات ذكية -->
+    <div id="notification" class="notification"></div>
 
 </body>
 </html>

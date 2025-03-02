@@ -1,32 +1,39 @@
-// تنفيذ كود عند تحميل الصفحة
 document.addEventListener("DOMContentLoaded", function () {
-    document.body.style.backgroundColor = "#222";
-    setTimeout(() => {
-        document.body.style.backgroundColor = "#1a1a1a";
-    }, 500);
-
+    updateDateTime();
     loadStudyStatus();
     loadProgressNotes();
+    loadStudyLog();
+    setInterval(updateDateTime, 1000); // تحديث الساعة كل ثانية
 });
 
-// دالة لحفظ حالة المحاضرات والسيكشنات في Local Storage
-function saveStudyStatus(subject) {
-    const lectureChecked = document.getElementById("lectureCheckbox").checked;
-    const sectionChecked = document.getElementById("sectionCheckbox").checked;
-    
+// ✅ تحديث وعرض الوقت والتاريخ
+function updateDateTime() {
+    const now = new Date();
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    document.getElementById("currentDate").textContent = now.toLocaleDateString("en-US", options);
+    document.getElementById("currentTime").textContent = now.toLocaleTimeString("en-US", { hour12: false });
+}
+
+// ✅ حفظ حالة المحاضرات والسيكشنات فورًا عند التغيير
+function saveStudyStatus() {
+    const subject = document.body.getAttribute("data-subject");
+    if (!subject) return;
+
     const studyData = {
-        lecture: lectureChecked,
-        section: sectionChecked
+        lecture: document.getElementById("lectureCheckbox").checked,
+        section: document.getElementById("sectionCheckbox").checked
     };
 
     localStorage.setItem(subject + "_status", JSON.stringify(studyData));
+    showNotification(Saved progress for ${subject});
 }
 
-// دالة لتحميل حالة المحاضرات والسيكشنات عند فتح الصفحة
+// ✅ تحميل حالة المحاضرات والسيكشنات عند فتح الصفحة
 function loadStudyStatus() {
     const subject = document.body.getAttribute("data-subject");
-    const savedStatus = localStorage.getItem(subject + "_status");
+    if (!subject) return;
 
+    const savedStatus = localStorage.getItem(subject + "_status");
     if (savedStatus) {
         const studyData = JSON.parse(savedStatus);
         document.getElementById("lectureCheckbox").checked = studyData.lecture;
@@ -34,24 +41,31 @@ function loadStudyStatus() {
     }
 }
 
-// حفظ الملاحظات في Local Storage
-function saveProgress(subject) {
-    const notes = document.getElementById("progressNotes").value;
-    localStorage.setItem(subject + "_notes", notes);
+// ✅ حفظ الملاحظات فورًا عند التعديل
+function saveProgress() {
+    const subject = document.body.getAttribute("data-subject");
+    if (!subject) return;
+
+    localStorage.setItem(subject + "_notes", document.getElementById("progressNotes").value);
+    showNotification(Saved notes for ${subject});
 }
 
-// تحميل الملاحظات عند فتح الصفحة
+// ✅ تحميل الملاحظات عند فتح الصفحة
 function loadProgressNotes() {
     const subject = document.body.getAttribute("data-subject");
-    const savedNotes = localStorage.getItem(subject + "_notes");
+    if (!subject) return;
 
+    const savedNotes = localStorage.getItem(subject + "_notes");
     if (savedNotes) {
         document.getElementById("progressNotes").value = savedNotes;
     }
 }
 
-// تسجيل المادة في اليوم الحالي
-function logStudy(subject) {
+// ✅ تسجيل المادة التي تمت دراستها في اليوم الحالي
+function logStudy() {
+    const subject = document.body.getAttribute("data-subject");
+    if (!subject) return;
+
     const today = new Date().toLocaleDateString("en-US");
     let studyLog = JSON.parse(localStorage.getItem("studyLog")) || {};
 
@@ -64,23 +78,48 @@ function logStudy(subject) {
     }
 
     localStorage.setItem("studyLog", JSON.stringify(studyLog));
-    alert(subject + " has been logged for today!");
+    showNotification(${subject} logged for today! ✅);
+    loadStudyLog();
 }
 
-// تأثير عند الضغط على الأزرار
+// ✅ تحميل وعرض سجل الدراسة
+function loadStudyLog() {
+    const studyLog = JSON.parse(localStorage.getItem("studyLog")) || {};
+    const logContainer = document.getElementById("studyLog");
+
+    if (!logContainer) return;
+    logContainer.innerHTML = "";
+
+    for (let date in studyLog) {
+        let entry = document.createElement("p");
+        entry.innerHTML = <strong>${date}:</strong> ${studyLog[date].join(", ")};
+        logContainer.appendChild(entry);
+    }
+}
+
+// ✅ إضافة تأثير أنيميشن عند الضغط على الأزرار
 document.querySelectorAll("button").forEach(button => {
     button.addEventListener("click", function () {
         this.style.transform = "scale(0.9)";
-        setTimeout(() => {
-            this.style.transform = "scale(1)";
-        }, 150);
+        setTimeout(() => this.style.transform = "scale(1)", 150);
     });
 });
 
-// حفظ حالة المحاضرات تلقائيًا عند التغيير
+// ✅ استجابة فورية عند تغيير حالة الدراسة
 document.querySelectorAll("#lectureCheckbox, #sectionCheckbox").forEach(checkbox => {
-    checkbox.addEventListener("change", function () {
-        const subject = document.body.getAttribute("data-subject");
-        saveStudyStatus(subject);
-    });
+    checkbox.addEventListener("change", saveStudyStatus);
 });
+
+// ✅ استجابة فورية عند كتابة الملاحظات
+document.getElementById("progressNotes").addEventListener("input", saveProgress);
+
+// ✅ إشعارات ذكية عند الحفظ
+function showNotification(message) {
+    const notification = document.getElementById("notification");
+    notification.textContent = message;
+    notification.classList.add("show");
+
+    setTimeout(() => {
+        notification.classList.remove("show");
+    }, 2000);
+}

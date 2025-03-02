@@ -1,149 +1,150 @@
-/* استيراد الخطوط */
-@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
+/* ✅ إعداد الخطوط */
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;700&display=swap');
 
-/* إعدادات عامة */
+:root {
+    --primary-color: #d4af37; /* ذهبي */
+    --secondary-color: #f4f4f4; /* رمادي فاتح */
+    --background-color: #1e1e1e; /* رمادي غامق */
+    --text-color: #ffffff; /* أبيض */
+    --accent-color: #ffcc00; /* ذهبي ساطع */
+    --shadow-color: rgba(0, 0, 0, 0.2);
+}
+
+/* ✅ ضبط الصفحة بالكامل */
 body {
-    font-family: 'Patrick Hand', cursive; /* خط يشبه الكتابة اليدوية */
-    background-color: #1a1a1a; /* خلفية داكنة */
-    color: #f5f5f5; /* لون النص */
-    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    background: var(--background-color);
+    color: var(--text-color);
     margin: 0;
     padding: 0;
-    transition: background-color 0.5s ease-in-out;
+    text-align: center;
 }
 
-/* الهيدر */
+/* ✅ تحسين الهيدر */
 header {
-    background-color: #333;
-    padding: 20px;
-    font-size: 24px;
-    font-weight: bold;
-    box-shadow: 0px 4px 10px rgba(255, 215, 0, 0.5);
-    animation: fadeInDown 0.8s ease-in-out;
+    background: var(--primary-color);
+    padding: 15px;
+    box-shadow: 0 4px 6px var(--shadow-color);
 }
 
-/* الأزرار والروابط */
-a {
-    text-decoration: none;
-    color: #ffd700; /* ذهبي */
-    font-weight: bold;
-    transition: color 0.3s ease-in-out;
+header h1 {
+    font-family: 'Pacifico', cursive;
+    font-size: 2rem;
+    margin: 0;
+    color: var(--background-color);
 }
 
-a:hover {
-    color: #ffcc00;
+header p {
+    font-size: 1rem;
+    margin: 5px 0;
 }
 
-/* القائمة الرئيسية للمواد */
-ul {
-    list-style: none;
-    padding: 0;
+/* ✅ إضافة تأثيرات للمواد */
+.subjects {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
 }
 
-li {
-    background: #333;
-    color: #ffd700;
+.subject {
+    background: var(--secondary-color);
+    color: var(--background-color);
     padding: 15px;
     margin: 10px;
-    border-radius: 10px;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: transform 0.3s ease-in-out, background 0.3s ease-in-out;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-li:hover {
-    background: #444;
-    transform: scale(1.05);
-}
-
-/* الأيقونات بجانب المواد */
-li::before {
-    content: "📘 ";
-    font-size: 20px;
-}
-
-/* الأنيميشن عند فتح الصفحة */
-@keyframes fadeInDown {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* أنيميشن عند تمرير الماوس */
-.study-status label:hover, .progress button:hover {
-    transform: scale(1.05);
-    transition: 0.3s ease-in-out;
-}
-
-/* الملاحظات */
-textarea {
-    width: 80%;
-    height: 100px;
-    background: #333;
-    color: #fff;
-    border: 2px solid #ffd700;
-    padding: 10px;
-    font-size: 16px;
     border-radius: 8px;
+    width: 200px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 2px 2px 10px var(--shadow-color);
+    cursor: pointer;
+    position: relative;
 }
 
-/* الأزرار */
+.subject:hover {
+    transform: scale(1.05);
+    box-shadow: 4px 4px 15px var(--shadow-color);
+}
+
+.subject::after {
+    content: "🦷"; /* أيقونة طبية ترمز لطبيب الأسنان */
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    font-size: 1.5rem;
+}
+
+/* ✅ تنسيق الصفحة الفرعية */
+.container {
+    background: var(--secondary-color);
+    color: var(--background-color);
+    padding: 20px;
+    margin: 20px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 10px var(--shadow-color);
+}
+
+/* ✅ تحسين الأزرار */
 button {
-    background: #ffd700;
-    color: black;
+    background: var(--accent-color);
     border: none;
     padding: 10px 20px;
-    font-size: 18px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: 0.3s;
+    font-size: 1rem;
     font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 button:hover {
-    background: #ffcc00;
+    background: #ffdb4d;
+    transform: scale(1.1);
 }
 
-/* العناصر الرئيسية */
-main {
-    margin-top: 30px;
-    padding: 20px;
+/* ✅ تحسين مدخلات النص */
+input[type="checkbox"] {
+    transform: scale(1.2);
+    margin: 10px;
 }
 
-/* تنسيق الصفحة الفرعية */
-.study-status {
-    margin: 20px 0;
-    padding: 20px;
-    background: #222;
-    border-radius: 10px;
+/* ✅ تحسين حقل الملاحظات */
+textarea {
+    width: 90%;
+    height: 100px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid var(--primary-color);
+    resize: none;
 }
 
-.progress {
+/* ✅ تحسين الرسائل والإشعارات */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: -300px;
+    background: var(--primary-color);
+    color: var(--background-color);
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: right 0.5s ease-in-out;
+}
+
+.notification.show {
+    right: 20px;
+}
+
+/* ✅ تحسين سجل الدراسة */
+#studyLogContainer {
+    background: var(--secondary-color);
+    padding: 15px;
+    border-radius: 5px;
     margin-top: 20px;
-    padding: 20px;
-    background: #333;
-    border-radius: 10px;
 }
 
-/* تأثير تحميل الصفحة */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
+/* ✅ جعل التصميم متجاوبًا */
+@media (max-width: 600px) {
+    .subject {
+        width: 100%;
     }
-    to {
-        opacity: 1;
-    }
-}
-
-body {
-    animation: fadeIn 1s ease-in-out;
 }
