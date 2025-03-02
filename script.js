@@ -1,30 +1,45 @@
-// تحديث الساعة والتاريخ
-function updateDateTime() {
-    const now = new Date();
-    const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    const day = days[now.getDay()];
-    const date = now.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-    const time = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-
-    document.getElementById("day").textContent = 📅 ${day};
-    document.getElementById("date").textContent = 📆 ${date};
-    document.getElementById("time").textContent = ⏰ ${time};
-}
-
-// تحديث الجملة التحفيزية من API
+// جلب الجملة التحفيزية من الإنترنت
 async function fetchMotivationalQuote() {
     try {
-        const response = await fetch("https://api.quotable.io/random?tags=success|motivation");
+        const response = await fetch("https://api.quotable.io/random");
         const data = await response.json();
-        document.getElementById("quote").textContent = 💡 ${data.content};
+        document.getElementById("motivational-quote").innerText = "${data.content}" - ${data.author};
     } catch (error) {
-        document.getElementById("quote").textContent = "💡 Stay positive and keep pushing forward!";
+        console.error("Error fetching quote:", error);
+        document.getElementById("motivational-quote").innerText = "Stay focused and keep studying! 💪";
     }
 }
 
-// تشغيل الدوال عند تحميل الصفحة
-window.onload = function () {
-    updateDateTime();
-    setInterval(updateDateTime, 1000); // تحديث الوقت كل ثانية
-    fetchMotivationalQuote(); // جملة تحفيزية جديدة عند التحميل
-};
+// حفظ حالة الدراسة والملاحظات في Local Storage
+function saveProgress(subject) {
+    const lectureDone = document.getElementById("lectureCheckbox").checked;
+    const sectionDone = document.getElementById("sectionCheckbox").checked;
+    const progressNotes = document.getElementById("progressNotes").value;
+
+    const progressData = {
+        lectureDone: lectureDone,
+        sectionDone: sectionDone,
+        progressNotes: progressNotes
+    };
+
+    localStorage.setItem(subject, JSON.stringify(progressData));
+    alert("Progress saved successfully! ✅");
+}
+
+// تحميل البيانات المحفوظة عند فتح الصفحة
+function loadProgress(subject) {
+    const savedData = localStorage.getItem(subject);
+    if (savedData) {
+        const progressData = JSON.parse(savedData);
+        document.getElementById("lectureCheckbox").checked = progressData.lectureDone;
+        document.getElementById("sectionCheckbox").checked = progressData.sectionDone;
+        document.getElementById("progressNotes").value = progressData.progressNotes;
+    }
+}
+
+// تحميل الجملة التحفيزية عند فتح الصفحة الرئيسية
+document.addEventListener("DOMContentLoaded", function () {
+    if (document.getElementById("motivational-quote")) {
+        fetchMotivationalQuote();
+    }
+});
