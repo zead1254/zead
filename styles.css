@@ -1,11 +1,11 @@
 /* ✅ استيراد الخطوط */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
-/* ✅ تنسيق عام */
+/* ✅ تنسيق عام للصفحة */
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: #1a1a1a; /* أسود داكن */
-    color: #fff; /* نص باللون الأبيض */
+    background-color: #121212; /* أسود داكن */
+    color: white;
     text-align: center;
     margin: 0;
     padding: 0;
@@ -13,54 +13,50 @@ body {
 
 /* ✅ الهيدر */
 header {
-    background: linear-gradient(to right, #333, #000); /* أسود و رمادي */
+    background: linear-gradient(to right, #000, #222); /* أسود مع رمادي غامق */
     color: gold;
     padding: 20px;
-    font-size: 1.3em;
+    font-size: 1.5em;
+    font-weight: bold;
     text-transform: uppercase;
-    font-weight: bold;
-    box-shadow: 0px 4px 6px rgba(255, 215, 0, 0.3);
+    box-shadow: 0px 4px 10px rgba(255, 215, 0, 0.4);
 }
 
-/* ✅ التحليل الأسبوعي */
-#weeklyAnalysis {
-    background-color: #222; /* رمادي غامق */
+/* ✅ خلفية بتأثير إضاءة خفيفة */
+.container {
+    background: radial-gradient(circle at center, rgba(255, 215, 0, 0.15), transparent 70%);
     padding: 20px;
-    margin: 20px;
     border-radius: 10px;
-    box-shadow: 0px 4px 6px rgba(255, 215, 0, 0.3);
-}
-
-#weeklySummary {
-    font-size: 1.1em;
-    font-weight: bold;
-    color: #FFD700; /* ذهبي */
+    box-shadow: 0px 5px 15px rgba(255, 215, 0, 0.3);
 }
 
 /* ✅ قائمة المواد */
 .subjects {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 15px;
+    gap: 20px;
     padding: 20px;
 }
 
 .subject {
-    background: linear-gradient(to right, #666, #333); /* رمادي */
+    background: linear-gradient(to right, #1e1e1e, #333); /* أسود مع رمادي غامق */
     padding: 15px;
-    border-radius: 10px;
+    border-radius: 12px;
     font-size: 1.2em;
     font-weight: bold;
     cursor: pointer;
     color: white;
-    transition: transform 0.3s ease-in-out, background 0.3s ease-in-out;
-    box-shadow: 0px 3px 6px rgba(255, 215, 0, 0.2);
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 4px 8px rgba(255, 215, 0, 0.3);
+    position: relative;
 }
 
+/* ✅ تأثير الإضاءة عند التحويل */
 .subject:hover {
     transform: scale(1.05);
     background: linear-gradient(to right, #FFD700, #FFA500); /* ذهبي إلى أصفر */
     color: black;
+    box-shadow: 0px 4px 10px rgba(255, 215, 0, 0.5);
 }
 
 /* ✅ زر الانتقال إلى التحليل اليومي */
@@ -84,11 +80,11 @@ button:hover {
 
 /* ✅ سجل الدراسة */
 #studyLogContainer {
-    background-color: #222; /* رمادي غامق */
+    background-color: #1e1e1e; /* رمادي غامق */
     padding: 20px;
     margin: 20px;
     border-radius: 10px;
-    box-shadow: 0px 4px 6px rgba(255, 215, 0, 0.3);
+    box-shadow: 0px 5px 10px rgba(255, 215, 0, 0.3);
 }
 
 #studyLog {
@@ -116,6 +112,6 @@ button:hover {
     }
     
     header {
-        font-size: 1.1em;
+        font-size: 1.2em;
     }
 }
